@@ -1,11 +1,11 @@
 # Team-Profile-Generator
 
 ## Table of Contents 
-1. [#Description](#Description)
-2. [#Installation](#Installation)
-3. [#Usage](#Usage)
-4. [#Contributors](#Contributors)
-5. [#License](#License)
+[#Description](Description)
+[#Installation](Installation)
+[#Usage](Usage)
+[#Contributors](Contributors)
+[#License](License)
 
 ## Description 
 This CLI application generates team member cards according to the information prompted by the user. 
