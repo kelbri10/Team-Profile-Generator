@@ -12,7 +12,7 @@ This CLI application generates team member cards according to the information pr
 
 ## Installation 
 In order to use this CLI application, the user must have the following installed: 
-*Command Line Interface (CLI)
+* Command Line Interface (CLI)
 * Inquirer
 * Jest 
 

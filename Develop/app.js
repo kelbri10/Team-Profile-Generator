@@ -13,7 +13,97 @@ const render = require("./lib/htmlRenderer");
 
 // Write code to use inquirer to gather information about the development team members,
 // and to create objects for each team member (using the correct classes as blueprints!)
+const startInquiry = () => {
 
+    const questions = [
+        {
+            type: 'list', 
+            name: 'role', 
+            message: 'What is your role?',
+            choices: ['Manager', 'Engineer', 'Intern']
+        },
+        {
+            type: 'input',
+            name: 'name', 
+            message: 'What is your name?', 
+        },
+        {
+            type: 'input',
+            name: 'employeeID', 
+            message: 'What is your id?', 
+        },
+        {
+            type: 'input',
+            name: 'email', 
+            message: 'What is your email?', 
+        }, 
+    
+    ]; 
+    
+    inquirer.prompt(questions).then(employee=>{
+        if (employee.role === 'Manager'){ 
+            managerQuestion(employee); 
+        } else if (employee.role === 'Engineer'){ 
+            engineerQuestions(employee); 
+        } else {
+            internQuestion(employee); 
+        }
+    }); 
+}
+
+const managerQuestion = employee => { 
+
+    const questions = [
+        {
+            type: 'input', 
+            name: 'number', 
+            message: 'What is your office number?' 
+        
+        }
+    ]; 
+
+    inquirer.prompt(questions).then(answer=>{ 
+        employee.officeNumber = answer; 
+    }); 
+
+    return employee; 
+} 
+
+const engineerQuestions = employee => { 
+    console.log('this person is a engineer'); 
+
+    const questions = [
+        {
+            type: 'input',
+            name: 'github', 
+            message: 'What is your github username?', 
+        }
+    ]
+
+    inquirer.prompt(questions).then(answer =>{ 
+        employee.github = answer; 
+    }); 
+
+    return employee; 
+}
+
+const internQuestion = (employee) => { 
+    const question = [
+        {
+            type: 'input',
+            name: 'school', 
+            message: 'What school are you currently attending or recently graduated from?', 
+        }
+    ]; 
+
+    inquirer.prompt(question).then(answer =>{ 
+        employee.school = answer; 
+    })
+
+    return employee; 
+}
+
+startInquiry(); 
 // After the user has input all employees desired, call the `render` function (required
 // above) and pass in an array containing all employee objects; the `render` function will
 // generate and return a block of HTML including templated divs for each employee!
