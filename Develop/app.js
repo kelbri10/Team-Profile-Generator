@@ -66,7 +66,7 @@ const managerQuestion = employee => {
         employee.officeNumber = answer; 
     }); 
 
-    return employee; 
+    const manager = new Manager(employee.role, employee.name, employee.employeeID, employee.email, employee.officeNumber); 
 } 
 
 const engineerQuestions = employee => { 
@@ -84,7 +84,7 @@ const engineerQuestions = employee => {
         employee.github = answer; 
     }); 
 
-    return employee; 
+    const engineer = new Engineer(employee.role, employee.name, employee.employeeID, employee.email, employee.github)
 }
 
 const internQuestion = (employee) => { 
@@ -100,7 +100,7 @@ const internQuestion = (employee) => {
         employee.school = answer; 
     })
 
-    return employee; 
+    const intern = new Intern(employee.role, employee.name, employee.employeeID, employee.email, employee.school); 
 }
 
 startInquiry(); 
