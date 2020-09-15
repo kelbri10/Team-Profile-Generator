@@ -44,7 +44,7 @@ const startInquiry = () => {
         if (employee.role === 'Manager'){ 
             managerQuestion(employee); 
         } else if (employee.role === 'Engineer'){ 
-            engineerQuestions(employee); 
+            engineerQuestion(employee); 
         } else {
             internQuestion(employee); 
         }
@@ -63,13 +63,12 @@ const managerQuestion = employee => {
     ]; 
 
     inquirer.prompt(questions).then(answer=>{ 
-        employee.officeNumber = answer; 
+        const manager = new Manager(employee.role, employee.name, employee.employeeID, employee.email, answer); 
+        console.log(manager); 
     }); 
-
-    const manager = new Manager(employee.role, employee.name, employee.employeeID, employee.email, employee.officeNumber); 
 } 
 
-const engineerQuestions = employee => { 
+const engineerQuestion = employee => { 
     console.log('this person is a engineer'); 
 
     const questions = [
@@ -81,10 +80,9 @@ const engineerQuestions = employee => {
     ]
 
     inquirer.prompt(questions).then(answer =>{ 
-        employee.github = answer; 
+        const engineer = new Engineer(employee.role, employee.name, employee.employeeID, employee.email, answer); 
+        console.log(engineer); 
     }); 
-
-    const engineer = new Engineer(employee.role, employee.name, employee.employeeID, employee.email, employee.github)
 }
 
 const internQuestion = (employee) => { 
@@ -97,10 +95,10 @@ const internQuestion = (employee) => {
     ]; 
 
     inquirer.prompt(question).then(answer =>{ 
-        employee.school = answer; 
+        const intern = new Intern(employee.role, employee.name, employee.employeeID, employee.email, answer); 
+        console.log(intern); 
     })
-
-    const intern = new Intern(employee.role, employee.name, employee.employeeID, employee.email, employee.school); 
+ 
 }
 
 startInquiry(); 
