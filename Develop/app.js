@@ -34,7 +34,8 @@ const render = require("./lib/htmlRenderer");
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
 
-//asks initial questions of user, then uses role to filter out to final question 
+//asks initial questions of user, then uses role to filter out to final questions
+
 const buildTeam = () => {
 
     const questions = [
@@ -93,16 +94,18 @@ const createManager = employee => {
 
     inquirer.prompt(questions).then(answers=>{ 
         const manager = new Manager(employee.name, employee.id, employee.email, answers.number); 
-        console.log(manager); 
+      
+        employees.push(manager); 
         if (answers.addMember === 'Yes'){ 
             buildTeam(); 
+        } else { 
+            console.log(employees); 
         }
     }); 
 } 
 
 //called if user is engineer, new Engineer object is created
-const createEngineer = employee => { 
-    console.log('this person is a engineer'); 
+const createEngineer = employee => {
 
     const questions = [
         {
@@ -120,7 +123,14 @@ const createEngineer = employee => {
 
     inquirer.prompt(questions).then(answers =>{ 
         const engineer = new Engineer(employee.name, employee.id, employee.email, answers.github); 
-        console.log(engineer); 
+        
+        employees.push(engineer); 
+
+        if (answers.addMember === 'Yes'){ 
+            buildTeam(); 
+        } else { 
+            console.log(employees); 
+        }
     }); 
 }
 
@@ -142,9 +152,22 @@ const createIntern = (employee) => {
 
     inquirer.prompt(question).then(answers =>{ 
         const intern = new Intern(employee.name, employee.id, employee.email, answers.school); 
-        console.log(intern); 
+        
+        employees.push(intern); 
+
+        if (answers.addMember === 'Yes'){ 
+            buildTeam(); 
+        } else { 
+            fs.writeFile('team.html', render(employees), 'utf-8', err=>{ 
+                if (err) throw err; 
+
+                console.log('Your file has been created!'); 
+            })
+        }
     })
  
 }
+
+const employees = []; 
 
 buildTeam(); 
