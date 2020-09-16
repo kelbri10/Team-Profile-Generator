@@ -99,7 +99,11 @@ const createManager = employee => {
         if (answers.addMember === 'Yes'){ 
             buildTeam(); 
         } else { 
-            console.log(employees); 
+            fs.writeFile('team.html', render(employees), 'utf-8', err=>{ 
+                if (err) throw err; 
+
+                console.log('Your file has been created!'); 
+            }) 
         }
     }); 
 } 
@@ -129,7 +133,11 @@ const createEngineer = employee => {
         if (answers.addMember === 'Yes'){ 
             buildTeam(); 
         } else { 
-            console.log(employees); 
+            fs.writeFile('team.html', render(employees), 'utf-8', err=>{ 
+                if (err) throw err; 
+
+                console.log('Your file has been created!'); 
+            })
         }
     }); 
 }
