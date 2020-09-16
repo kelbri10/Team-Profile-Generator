@@ -35,7 +35,7 @@ const render = require("./lib/htmlRenderer");
 // for the provided `render` function to work! ```
 
 //asks initial questions of user, then uses role to filter out to final question 
-const startInquiry = () => {
+const buildTeam = () => {
 
     const questions = [
         {
@@ -51,7 +51,7 @@ const startInquiry = () => {
         },
         {
             type: 'input',
-            name: 'employeeID', 
+            name: 'id', 
             message: 'What is your id?', 
         },
         {
@@ -64,17 +64,17 @@ const startInquiry = () => {
     
     inquirer.prompt(questions).then(employee=>{
         if (employee.role === 'Manager'){ 
-            managerQuestion(employee); 
+            createManager(employee); 
         } else if (employee.role === 'Engineer'){ 
-            engineerQuestion(employee); 
+            createEngineer(employee); 
         } else {
-            internQuestion(employee); 
+            createIntern(employee); 
         }
     }); 
 }
 
 //called if user is manager, new Manager object is created 
-const managerQuestion = employee => { 
+const createManager = employee => { 
 
     const questions = [
         {
@@ -82,17 +82,26 @@ const managerQuestion = employee => {
             name: 'number', 
             message: 'What is your office number?' 
         
+        },
+        {
+            type: 'list',
+            name: 'addMember',
+            message: 'Would you like to add another team member?',
+            choices: ['Yes', 'No']
         }
     ]; 
 
-    inquirer.prompt(questions).then(answer=>{ 
-        const manager = new Manager(employee.role, employee.name, employee.employeeID, employee.email, answer); 
+    inquirer.prompt(questions).then(answers=>{ 
+        const manager = new Manager(employee.name, employee.id, employee.email, answers.number); 
         console.log(manager); 
+        if (answers.addMember === 'Yes'){ 
+            buildTeam(); 
+        }
     }); 
 } 
 
 //called if user is engineer, new Engineer object is created
-const engineerQuestion = employee => { 
+const createEngineer = employee => { 
     console.log('this person is a engineer'); 
 
     const questions = [
@@ -100,31 +109,42 @@ const engineerQuestion = employee => {
             type: 'input',
             name: 'github', 
             message: 'What is your github username?', 
+        },
+        {
+            type: 'list',
+            name: 'addMember',
+            message: 'Would you like to add another team member?',
+            choices: ['Yes', 'No']
         }
     ]
 
-    inquirer.prompt(questions).then(answer =>{ 
-        const engineer = new Engineer(employee.role, employee.name, employee.employeeID, employee.email, answer); 
+    inquirer.prompt(questions).then(answers =>{ 
+        const engineer = new Engineer(employee.name, employee.id, employee.email, answers.github); 
         console.log(engineer); 
     }); 
 }
 
 //called if user is intern, new Intern object is created
-const internQuestion = (employee) => { 
+const createIntern = (employee) => { 
     const question = [
         {
             type: 'input',
             name: 'school', 
             message: 'What school are you currently attending or recently graduated from?', 
+        },
+        {
+            type: 'list',
+            name: 'addMember',
+            message: 'Would you like to add another team member?',
+            choices: ['Yes', 'No']
         }
     ]; 
 
-    inquirer.prompt(question).then(answer =>{ 
-        const intern = new Intern(employee.role, employee.name, employee.employeeID, employee.email, answer); 
+    inquirer.prompt(question).then(answers =>{ 
+        const intern = new Intern(employee.name, employee.id, employee.email, answers.school); 
         console.log(intern); 
     })
  
 }
 
-startInquiry(); 
-
+buildTeam(); 
