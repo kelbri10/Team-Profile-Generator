@@ -18,6 +18,7 @@ In order to use this CLI application, the user must have the following installed
 
 ## Usage 
 Launch the program using a CLI such as Git Bash. When prompted, the user responds to the provided questions. Once the user answers all the questions about the team manager and team members, the application will create an html file that displays the team roster.
+![Image of Demo](https://github.com/kelbri10/Team-Profile-Generator/blob/master/teamProfileGenerator.png)
 
 ## Contributors 
 Kelsey Hughes (kelbri10@gmail.com) [Github Profile](https://github.com/kelbri10)
